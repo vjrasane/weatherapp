@@ -1,0 +1,17 @@
+module.exports = {
+  parser: 'babel-eslint',
+  extends: 'airbnb',
+  env: {
+    browser: true,
+    es6: true,
+    node: true,
+  },
+  rules: {
+    semi: ['error', 'always'],
+    'comma-dangle': ['error', 'always-multiline'],
+  },
+  globals: {
+    fetch: false,
+    document: true,
+  },
+};
