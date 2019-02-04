@@ -1,3 +1,8 @@
 steps:
 - name: docker/compose:1.19.0
   args: ['up', '-d']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['tag', 'weatherapp-backend:latest', 'gcr.io/$PROJECT_ID/weatherapp-backend:$COMMIT_SHA']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['tag', 'weatherapp-frontend:latest', 'gcr.io/$PROJECT_ID/weatherapp-frontend:$COMMIT_SHA']
+images: ['gcr.io/$PROJECT_ID/weatherapp-backend:$COMMIT_SHA', 'gcr.io/$PROJECT_ID/weatherapp-frontend:$COMMIT_SHA']
