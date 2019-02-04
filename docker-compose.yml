@@ -1,10 +1,12 @@
 version: '3'
 services:
   backend:
+    image: weatherapp-backend
     build: ./backend
     ports:
       - "9000:9000"
   frontend:
+    image: weatherapp-frontend
     build: ./frontend
     ports:
       - "8080:5000"
