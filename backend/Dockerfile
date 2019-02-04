@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:slim
 
 ARG COMMAND=start
 ARG APPID=5b6368533d84d93971b4a3bd8db47475
