@@ -20,17 +20,21 @@ const getLocation = () =>
     }
   });
 
+const buildQuery = paramObj =>
+  Object.entries(paramObj)
+    .map(pair => pair.map(encodeURIComponent).join('='))
+    .join('&');
+
 const getWeatherFromApi = async () => {
   try {
     const location = await getLocation();
-    const afterMoment = moment()
-      .add(3, 'h')
-      .unix();
-    let url = `${baseURL}/forecast?after=${afterMoment}`;
-    url = location
-      ? `${url}&lat=${location.coords.latitude}&lon=${location.coords.longitude}`
-      : url;
-    return await get(url);
+    const afterMoment = moment().add(3, 'h');
+    let params = { after: afterMoment.unix() };
+    if (location) {
+      const { latitude, longitude } = location.coords;
+      params = { ...params, lat: latitude, lon: longitude };
+    }
+    return await get(`${baseURL}/forecast?${buildQuery(params)}`);
   } catch (error) {
     console.error(error); // eslint-disable-line no-console
   }
