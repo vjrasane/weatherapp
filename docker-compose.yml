@@ -5,10 +5,13 @@ services:
     build: ./backend
     ports:
       - "9000:9000"
+    environment:
+      BACKEND_PORT: 9000
   frontend:
     image: weatherapp-frontend
     build: ./frontend
     ports:
       - "8080:5000"
     environment:
-      ENDPOINT_PORT: 9000
+      BACKEND_PORT: 9000
+      FRONTEND_PORT: 5000

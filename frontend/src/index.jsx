@@ -5,17 +5,16 @@ import moment from 'moment';
 
 import './index.css';
 
-const port = process.env.ENDPOINT_PORT;
+const port = process.env.BACKEND_PORT;
 const baseURL = `${window.location.protocol}//${window.location.hostname}:${port}/api`;
 
 const getWeatherFromApi = async (location) => {
   try {
-    const afterMoment = moment().add(3, 'h');
+    const afterMoment = moment().add(3, 'h').unix();
     let url = `${baseURL}/forecast?after=${afterMoment}`;
     url = location
       ? `${url}&lat=${location.coords.latitude}&lon=${location.coords.longitude}`
       : url;
-
     return await get(url);
   } catch (error) {
     console.error(error); // eslint-disable-line no-console
@@ -34,15 +33,14 @@ class Weather extends React.Component {
   }
 
   async componentWillMount() {
-    let weather;
+    let weather = await getWeatherFromApi();
+    this.setState({ icon: weather.data.icon.slice(0, -1) });
+
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(async (location) => {
         weather = await getWeatherFromApi(location);
         this.setState({ icon: weather.data.icon.slice(0, -1) });
       });
-    } else {
-      weather = await getWeatherFromApi();
-      this.setState({ icon: weather.data.icon.slice(0, -1) });
     }
   }
 

@@ -1,7 +1,7 @@
 FROM node:slim
 
 ARG APPID=5b6368533d84d93971b4a3bd8db47475
-ARG PORT=9000
+ARG BACKEND_PORT=9000
 
 WORKDIR /usr/src/app
 COPY package*.json ./
@@ -9,9 +9,10 @@ RUN npm install
 
 COPY . .
 
-ENV NODE_ENV=production
 ENV APPID=${APPID}
-ENV PORT=${PORT}
+ENV BACKEND_PORT=${BACKEND_PORT}
+ENV NODE_ENV=production
 
-EXPOSE ${PORT}
+EXPOSE ${BACKEND_PORT}
+
 CMD npm run start

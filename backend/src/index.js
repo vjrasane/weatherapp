@@ -13,7 +13,7 @@ const mapURI =
   process.env.MAP_ENDPOINT || 'http://api.openweathermap.org/data/2.5';
 const targetCity = process.env.TARGET_CITY || 'Helsinki,fi';
 
-const port = process.env.PORT || 9000;
+const port = process.env.BACKEND_PORT || 9000;
 
 const app = new Koa();
 
@@ -42,7 +42,7 @@ router.get('/api/forecast', async ctx => {
 
   const forecast = ctx.query.after
     ? forecastData.list.find(
-        forecast => moment(forecast.dt_txt) > moment(ctx.query.after)
+        forecast => moment.unix(forecast.dt) > moment.unix(ctx.query.after)
       )
     : first(forecastData.list);
 

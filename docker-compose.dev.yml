@@ -7,6 +7,8 @@ services:
       - "9000:9000"
     volumes:
       - ./backend:/usr/src/app
+    environment:
+      BACKEND_PORT: 9000
   frontend:
     build: ./frontend
     command: npm run start -- --host 0.0.0.0
@@ -15,4 +17,5 @@ services:
     volumes:
       - ./frontend:/usr/src/app
     environment:
-      ENDPOINT_PORT: 9000
+      BACKEND_PORT: 9000
+      FRONTEND_PORT: 5000

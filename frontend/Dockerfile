@@ -1,6 +1,7 @@
 FROM node:slim
 
-ARG PORT=5000
+ARG BACKEND_PORT=9000
+ARG FRONTEND_PORT=5000
 
 WORKDIR /usr/src/app
 COPY package*.json ./
@@ -8,8 +9,12 @@ RUN npm install
 
 COPY . .
 
+ENV BACKEND_PORT=${BACKEND_PORT}
+ENV FRONTEND_PORT=${BACKEND_PORT}
 ENV NODE_ENV=production
+
 RUN npm run build
 
-EXPOSE ${PORT}
+EXPOSE ${FRONTEND_PORT}
+
 CMD npm run serve

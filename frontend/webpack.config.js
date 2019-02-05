@@ -10,7 +10,7 @@ module.exports = {
     contentBase: path.join(__dirname, 'src', 'public'),
     disableHostCheck: true,
     compress: true,
-    port: 5000,
+    port: process.env.FRONTEND_PORT || 5000,
   },
   module: {
     rules: [
@@ -43,7 +43,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        ENDPOINT_PORT: JSON.stringify(process.env.ENDPOINT_PORT || 9000),
+        BACKEND_PORT: JSON.stringify(process.env.BACKEND_PORT || 9000),
       },
     }),
     new CopyWebpackPlugin([
