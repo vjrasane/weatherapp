@@ -8,8 +8,8 @@ import './index.css';
 const port = process.env.BACKEND_PORT;
 const baseURL = `${window.location.protocol}//${window.location.hostname}:${port}/api`;
 
-const getLocation = () =>
-  new Promise((resolve) => {
+const getLocation = () => new Promise(
+  (resolve) => {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
         location => resolve(location),
@@ -18,12 +18,12 @@ const getLocation = () =>
     } else {
       resolve(); // no geo available, resolve undefined
     }
-  });
+  }
+);
 
-const buildQuery = paramObj =>
-  Object.entries(paramObj)
-    .map(pair => pair.map(encodeURIComponent).join('='))
-    .join('&');
+const buildQuery = paramObj => Object.entries(paramObj)
+  .map(pair => pair.map(encodeURIComponent).join('='))
+  .join('&');
 
 const getWeatherFromApi = async () => {
   try {
